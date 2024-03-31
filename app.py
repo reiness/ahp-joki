@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session,  redirect, url_for
 import ahpy
 import secrets
 import string
@@ -12,6 +12,16 @@ app.secret_key = generate_secret_key()
 
 def get_criteria():
     return ["Playerbase", "Market Size", "Policy", "Competitors"]
+
+def check_consistency(pairwise_comparisons):
+    ratios = {}
+    for criterion, comparisons in pairwise_comparisons.items():
+        comparison = ahpy.Compare(criterion, comparisons, precision=3, random_index='saaty')
+        consistency_ratio = comparison.consistency_ratio
+        ratios[criterion] = consistency_ratio
+        if consistency_ratio > 0.1:
+            return True, ratios
+    return False, ratios
 
 
 def perform_calculation(pairwise_comparisons):
@@ -79,16 +89,22 @@ def calculate():
                     # You may choose to set a default value or take appropriate action
                     pairwise_comparisons[criterion][(alt_i, alt_j)] = 1  # Default value
 
-    
+    # Execute consistency check
+    consistency_check_passed, consistency_ratios = check_consistency(pairwise_comparisons)
 
-    # Calculate weights
-    ranked = perform_calculation(pairwise_comparisons)
-    print(f'rankssss{ranked}')
+    if consistency_check_passed:
+        # Redirect to invalid.html if consistency check fails
+        return redirect(url_for('invalid', consistency_ratios=consistency_ratios))
+    else:
+        # Calculate weights and render results.html
+        ranked = perform_calculation(pairwise_comparisons)
+        return render_template('results.html', results=ranked, pairwise_comparisons=pairwise_comparisons, consistency_ratios=consistency_ratios)
 
-    return render_template('results.html', results=ranked, pairwise_comparisons=pairwise_comparisons)
 
 
-
+@app.route('/invalid')
+def invalid():
+    return render_template('invalid.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
