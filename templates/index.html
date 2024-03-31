@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHP Web App</title>
+</head>
+<body>
+    <form id="alternativesForm" method="POST" action="/process">
+        <label for="num_alternatives">Enter the number of alternatives (up to 5):</label>
+        <input type="number" id="num_alternatives" name="num_alternatives" min="1" max="5"><br><br>
+        
+        <div id="alternativesInputs"></div>
+        
+        <input type="submit" id="submitAlternativesBtn" value="Submit Alternatives" style="display: none;">
+    </form>
+
+    <script>
+        document.getElementById('num_alternatives').addEventListener('input', function() {
+            var numAlternatives = parseInt(this.value);
+            var alternativesInputs = document.getElementById('alternativesInputs');
+            alternativesInputs.innerHTML = '';
+
+            for (var i = 0; i < numAlternatives; i++) {
+                var label = document.createElement('label');
+                label.setAttribute('for', 'alternative' + (i + 1));
+                label.textContent = 'Enter alternative ' + (i + 1) + ':';
+                alternativesInputs.appendChild(label);
+
+                var input = document.createElement('input');
+                input.setAttribute('type', 'text');
+                input.setAttribute('id', 'alternative' + (i + 1));
+                input.setAttribute('name', 'alternative' + (i + 1));
+                alternativesInputs.appendChild(input);
+
+                alternativesInputs.appendChild(document.createElement('br'));
+                alternativesInputs.appendChild(document.createElement('br'));
+            }
+
+            if (numAlternatives > 0) {
+                document.getElementById('submitAlternativesBtn').style.display = 'block';
+            } else {
+                document.getElementById('submitAlternativesBtn').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

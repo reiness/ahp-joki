@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+    <h2>AHP Results</h2>
+    <table>
+        <tr>
+            <th>Criterion</th>
+            <th>Target Weight</th>
+        </tr>
+        {% for criterion, target_weight in results.items() %}
+        <tr>
+            <td>{{ criterion }}</td>
+            <td>{{ target_weight }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h3> {{  pairwise_comparisons  }} </h3>
+</body>
+</html>
