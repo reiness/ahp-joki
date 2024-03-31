@@ -20,7 +20,7 @@ def get_criteria():
     #         "Price Competition",
     #         "Category Joki",
     #         "Skill Ceiling"]
-    return ['Playerbase','Market Size','Policy','Competitiors']
+    return ['Playerbase','Market Size','Policy','Competitors']
 
 def check_consistency(pairwise_comparisons):
     ratios = {}
