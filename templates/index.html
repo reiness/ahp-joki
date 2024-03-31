@@ -16,28 +16,35 @@
     </form>
 
     <script>
+        // Function to check if the input value is within the valid range
+        function isValidInput(inputValue) {
+            return !isNaN(inputValue) && parseInt(inputValue) >= 1 && parseInt(inputValue) <= 5;
+        }
+
+        // Event listener for input changes on num_alternatives
         document.getElementById('num_alternatives').addEventListener('input', function() {
-            var numAlternatives = parseInt(this.value);
+            var inputValue = this.value;
+            var numAlternatives = parseInt(inputValue);
             var alternativesInputs = document.getElementById('alternativesInputs');
             alternativesInputs.innerHTML = '';
 
-            for (var i = 0; i < numAlternatives; i++) {
-                var label = document.createElement('label');
-                label.setAttribute('for', 'alternative' + (i + 1));
-                label.textContent = 'Enter alternative ' + (i + 1) + ':';
-                alternativesInputs.appendChild(label);
+            if (isValidInput(inputValue)) {
+                for (var i = 0; i < numAlternatives; i++) {
+                    var label = document.createElement('label');
+                    label.setAttribute('for', 'alternative' + (i + 1));
+                    label.textContent = 'Enter alternative ' + (i + 1) + ':';
+                    alternativesInputs.appendChild(label);
 
-                var input = document.createElement('input');
-                input.setAttribute('type', 'text');
-                input.setAttribute('id', 'alternative' + (i + 1));
-                input.setAttribute('name', 'alternative' + (i + 1));
-                alternativesInputs.appendChild(input);
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'text');
+                    input.setAttribute('id', 'alternative' + (i + 1));
+                    input.setAttribute('name', 'alternative' + (i + 1));
+                    alternativesInputs.appendChild(input);
 
-                alternativesInputs.appendChild(document.createElement('br'));
-                alternativesInputs.appendChild(document.createElement('br'));
-            }
+                    alternativesInputs.appendChild(document.createElement('br'));
+                    alternativesInputs.appendChild(document.createElement('br'));
+                }
 
-            if (numAlternatives > 0) {
                 document.getElementById('submitAlternativesBtn').style.display = 'block';
             } else {
                 document.getElementById('submitAlternativesBtn').style.display = 'none';

@@ -11,7 +11,16 @@ app = Flask(__name__)
 app.secret_key = generate_secret_key()
 
 def get_criteria():
-    return ["Playerbase", "Market Size", "Policy", "Competitors"]
+    # return ["Availability Joki",
+    #         "Playerbase", 
+    #         "Market Size",
+    #         "Policy", 
+    #         "Competitors",
+    #         "Underlying Cost",
+    #         "Price Competition",
+    #         "Category Joki",
+    #         "Skill Ceiling"]
+    return ['Playerbase','Market Size','Policy','Competitiors']
 
 def check_consistency(pairwise_comparisons):
     ratios = {}
@@ -81,9 +90,9 @@ def calculate():
                 alt_i = alternatives[i]
                 alt_j = alternatives[j]
                 if f"{criterion}_{i}_{j}_value" in weights:
-                    pairwise_comparisons[criterion][(alt_i, alt_j)] = int(weights[f"{criterion}_{i}_{j}_value"])
+                    pairwise_comparisons[criterion][(alt_i, alt_j)] = float(weights[f"{criterion}_{i}_{j}_value"])
                 elif f"{criterion}_{j}_{i}_value" in weights:
-                    pairwise_comparisons[criterion][(alt_i, alt_j)] = 1 / int(weights[f"{criterion}_{j}_{i}_value"])
+                    pairwise_comparisons[criterion][(alt_i, alt_j)] = 1 / float(weights[f"{criterion}_{j}_{i}_value"])
                 else:
                     # Handle the case where the key is not found
                     # You may choose to set a default value or take appropriate action

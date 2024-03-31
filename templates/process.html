@@ -19,7 +19,7 @@
                     {% for j in range(i+1, num_alternatives) %}
                         <tr>
                             <td>{{ alternatives[i] }} vs {{ alternatives[j] }}</td>
-                            <td><input type="number" name="{{ criterion.replace(' ', '_') }}_{{ i }}_{{ j }}_value" min="1" max="9" required></td>
+                            <td><input type="text" name="{{ criterion.replace(' ', '_') }}_{{ i }}_{{ j }}_value" required></td>
                         </tr>
                     {% endfor %}
                 {% endfor %}
@@ -30,15 +30,17 @@
 
     <script>
         document.getElementById('ahpForm').addEventListener('submit', function(event) {
-            var forms = document.querySelectorAll('input[type="number"]');
-            var filled = true;
+            var forms = document.querySelectorAll('input[type="text"]');
+            var valid = true;
             forms.forEach(function(input) {
-                if (!input.value) {
-                    filled = false;
+                var value = parseFloat(input.value);
+                if (isNaN(value) || value < 0 || value > 9) {
+                    valid = false;
                 }
             });
-            if (!filled) {
-                event.preventDefault(); // Prevent form submission if not all values are filled
+            if (!valid) {
+                event.preventDefault(); // Prevent form submission if any input is invalid
+                alert("Please enter valid decimal numbers between 0 and 9.");
             }
         });
     </script>
