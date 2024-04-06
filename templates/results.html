@@ -4,26 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results</title>
+    <!-- Include Google Fonts link for Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <!-- Apply font to the entire document -->
+    <style>
+        body, input, button, select, textarea, div {
+            font-family: 'Manrope';
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1rem; /* Add margin at the bottom of the table */
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 1rem; /* Adjust padding */
+            text-align: left;
+        }
+        th {
+            background-color: #f7fafc;
+            font-weight: bold;
+        }
+        h2{
+            color:#3b82f6;
+        }
+        .container {
+            padding-right: 1rem; /* Adjust padding right for container */
+            padding-left: 1rem; /* Adjust padding left for container */
+        }
+        .container.button{
+            text-align: right;
+        }
+    </style>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>AHP Results</h2>
-    <table>
-        <tr>
-            <th>Criterion</th>
-            <th>Target Weight</th>
-        </tr>
-        {% for criterion, target_weight in results.items() %}
-        <tr>
-            <td>{{ criterion }}</td>
-            <td>{{ target_weight }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <h1> PAIRWISE COMPARISONS </h1>
-    <h3> {{  pairwise_comparisons  }} </h3>
-    <br>
-    <br>
-    <h1> CONSISTENCY RATIO </h1>
-    <h3>    {{ consistency_ratios }} </h3>
+<body class="bg-gray-100">
+    <nav class="bg-gray-800 p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <span class="text-white text-xl font-bold">BAJUR & Co.</span>
+                <span class="text-white text-gray-500 text-sm">  Kelompok 2</span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto px-0 py-8">
+        <h2 class="flex justify-center items-center text-2xl font-bold">AHP Results</h2><br>
+        <table class="bg-white shadow-md rounded px-8 py-8 pt-6 pb-8 mb-4 mx-auto max-w-xl">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Criterion</th>
+                    <th>Target Weight</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%  set rank = namespace(value=1) %}
+                    {% for criterion, target_weight in results.items() %}
+                <tr>
+                    <td>{{ rank.value }}</td>
+                        {%  set rank.value = rank.value + 1 %}
+                    <td>{{ criterion }}</td>
+                    <td>{{ target_weight }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Uncomment below lines if you want to display pairwise comparisons -->
+        <!-- <h1 class="flex justify-center items-center text-2xl font-bold">PAIRWISE COMPARISONS</h1>
+        <h3 class="flex justify-center items-center text-lg font-bold">{{ pairwise_comparisons }}</h3> -->
+        
+        <br>
+        <br>
+        <h1 class="flex justify-center items-center text-2xl font-bold">CONSISTENCY RATIO</h1>
+        <h3 class="flex justify-center items-center text-lg font-bold">{{ consistency_ratios }}</h3>
+
+        <div class="flex justify-center items-center mt-8">
+            <div class="h-2 w-2 bg-gray-300 rounded-full mr-2"></div>
+            <div class="h-2 w-2 bg-gray-300 rounded-full mr-2"></div>
+            <div class="h-2 w-2 bg-blue-500 rounded-full mr-2"></div>
+        </div>
+    </div>
 </body>
 </html>

@@ -103,7 +103,8 @@ def calculate():
 
     if consistency_check_passed:
         # Redirect to invalid.html if consistency check fails
-        return redirect(url_for('invalid', consistency_ratios=consistency_ratios))
+        # return redirect(url_for('invalid', consistency_ratios=consistency_ratios))
+        return render_template('invalid.html', consistency_ratios=consistency_ratios)
     else:
         # Calculate weights and render results.html
         ranked = perform_calculation(pairwise_comparisons)
@@ -111,9 +112,9 @@ def calculate():
 
 
 
-@app.route('/invalid')
-def invalid():
-    return render_template('invalid.html')
+# @app.route('/invalid')
+# def invalid():
+#     return render_template('invalid.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

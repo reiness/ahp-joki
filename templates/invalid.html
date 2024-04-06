@@ -4,10 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invalid Input</title>
+    <!-- Include Google Fonts link for Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <!-- Apply font to the entire document -->
+    <style>
+        body, input, button, select, textarea, div {
+            font-family: 'Manrope';
+        }
+        h1 {
+            color:#f61515;
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 1000rem; /* Adjust font size as desired */
+        }
+        p {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #3b82f6;
+        }
+    </style>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Invalid Input</h1>
-    <p>The input provided is not consistent. Please review your pairwise comparisons and try again.</p>
-    <a href="/">Return to Input Page</a>
+<body class="bg-gray-100">
+    <nav class="bg-gray-800 p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <span class="text-white text-xl font-bold">BAJUR & Co.</span>
+                <span class="text-white text-gray-500 text-sm">  Kelompok 2</span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto px-8 py-8 text-2xl">
+        <h1>Invalid Input</h1>
+        
+        <br>
+        <p>The input provided is not consistent.</p>
+        
+        <p>Please review your pairwise comparisons and try again.</p>
+        <br>
+        <p>Consistency Ratio: {{ consistency_ratios }} </p>
+        <br>
+        <a href="/" class="text-blue-500 block text-center mt-4">Return to Input Page</a>
+    </div>
 </body>
 </html>

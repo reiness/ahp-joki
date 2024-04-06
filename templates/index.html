@@ -3,17 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AHP Web App</title>
+    <title>AKB Kelompok 2 UTS</title>
+    <!-- Add Google Fonts link for Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <!-- Apply font to the entire document -->
+    <style>
+        body, input, button, select, textarea, div {
+            font-family: 'Manrope';
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <form id="alternativesForm" method="POST" action="/process">
-        <label for="num_alternatives">Enter the number of alternatives (up to 5):</label>
-        <input type="number" id="num_alternatives" name="num_alternatives" min="1" max="5"><br><br>
-        
-        <div id="alternativesInputs"></div>
-        
-        <input type="submit" id="submitAlternativesBtn" value="Submit Alternatives" style="display: none;">
-    </form>
+<body class="bg-gray-100">
+    <nav class="bg-gray-800 p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <span class="text-white text-xl font-bold">BAJUR & Co.</span>
+                <span class="text-white text-gray-500 text-sm">  Kelompok 2</span>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto px-4 py-8">
+        <form id="alternativesForm" method="POST" action="/process" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto max-w-sm">
+            <div class="mb-4">
+                <label for="num_alternatives" class="block text-gray-700 text-sm font-bold mb-2">
+                    Enter the number of alternatives<br>
+                    <span class="text-xs text-gray-500">up to 5</span>
+                </label>
+                
+                <input type="number" id="num_alternatives" name="num_alternatives" min="1" max="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <br>
+            <div id="alternativesInputs" class="mb-6"></div>
+            
+            <input type="submit" id="submitAlternativesBtn" value="Submit Alternatives" style="display: none;" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        </form>
+
+        <div class="flex justify-center items-center mt-8">
+            <div class="h-2 w-2 bg-blue-500 rounded-full mr-2"></div>
+            <div class="h-2 w-2 bg-gray-300 rounded-full mr-2"></div>
+            <div class="h-2 w-2 bg-gray-300 rounded-full mr-2"></div>
+        </div>
+    </div>
 
     <script>
         // Function to check if the input value is within the valid range
@@ -39,6 +72,7 @@
                     input.setAttribute('type', 'text');
                     input.setAttribute('id', 'alternative' + (i + 1));
                     input.setAttribute('name', 'alternative' + (i + 1));
+                    input.classList.add('shadow', 'appearance-none', 'border', 'rounded', 'w-full', 'py-2', 'px-3', 'text-gray-700', 'leading-tight', 'focus:outline-none', 'focus:shadow-outline');
                     alternativesInputs.appendChild(input);
 
                     alternativesInputs.appendChild(document.createElement('br'));

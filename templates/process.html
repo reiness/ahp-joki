@@ -3,30 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Process Alternatives</title>
+    <title>AKB Kelompok 2 UTS</title>
+    <!-- Include Google Fonts link for Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <!-- Apply font to the entire document -->
+    <style>
+        body, input, button, select, textarea, div {
+            font-family: 'Manrope';
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1rem; /* Add margin at the bottom of the table */
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 1rem; /* Adjust padding */
+            text-align: left;
+        }
+        th {
+            background-color: #f7fafc;
+            font-weight: bold;
+        }
+        h2{
+            color:#3b82f6;
+        }
+        .container {
+            padding-right: 1rem; /* Adjust padding right for container */
+            padding-left: 1rem; /* Adjust padding left for container */
+        }
+        .container.button{
+            text-align: right;
+        }
+    </style>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Process Alternatives</h1>
-    <form id="ahpForm" method="POST" action="/calculate">
-        {% for criterion in criteria %}
-            <h2>{{ criterion }}</h2>
-            <table id="{{ criterion.replace(' ', '_') }}Table">
-                <tr>
-                    <th>Comparison</th>
-                    <th>Value</th>
-                </tr>
-                {% for i in range(num_alternatives) %}
-                    {% for j in range(i+1, num_alternatives) %}
+<body class="bg-gray-100">
+    <nav class="bg-gray-800 p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <span class="text-white text-xl font-bold">BAJUR & Co.</span>
+                <span class="text-white text-gray-500 text-sm">  Kelompok 2</span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto px-0 py-8">
+        <h1 class="flex justify-center items-center text-2xl font-bold ">Alternatives Weighting</h1>
+        <p class="flex justify-center items-center text-sm text-gray-500">on a scale of 0 to 9</p>
+
+        <br>
+        <form id="ahpForm" method="POST" action="/calculate" class="bg-white shadow-md rounded px-8 py-8 pt-6 pb-8 mb-4 mx-auto max-w-xl">
+
+            {% for criterion in criteria %}
+                <h2 class="text-lg font-semibold mb-2">{{ criterion }}</h2>
+                <table id="{{ criterion.replace(' ', '_') }}Table">
+                    <thead>
                         <tr>
-                            <td>{{ alternatives[i] }} vs {{ alternatives[j] }}</td>
-                            <td><input type="text" name="{{ criterion.replace(' ', '_') }}_{{ i }}_{{ j }}_value" required></td>
+                            <th>Comparison</th>
+                            <th>Value</th>
                         </tr>
-                    {% endfor %}
-                {% endfor %}
-            </table>
-        {% endfor %}
-        <input type="submit" value="Calculate">
-    </form>
+                    </thead>
+                    <tbody>
+                        {% for i in range(num_alternatives) %}
+                            {% for j in range(i+1, num_alternatives) %}
+                                <tr>
+                                    <td>{{ alternatives[i] }} vs {{ alternatives[j] }}</td>
+                                    <td><input type="text" name="{{ criterion.replace(' ', '_') }}_{{ i }}_{{ j }}_value" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                <br>
+            {% endfor %}
+            <div class="container button">
+                <a href="/" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">Back</a>
+                <input type="submit" value="Calculate" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            </div>
+            
+
+        </form>
+        
+
+        <div class="flex justify-center items-center mt-8">
+            <div class="h-2 w-2 bg-gray-300 rounded-full mr-2"></div>
+            <div class="h-2 w-2 bg-blue-500 rounded-full mr-2"></div>
+            <div class="h-2 w-2 bg-gray-300 rounded-full mr-2"></div>
+        </div>
+
+    </div>
 
     <script>
         document.getElementById('ahpForm').addEventListener('submit', function(event) {
