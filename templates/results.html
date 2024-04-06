@@ -81,8 +81,29 @@
         
         <br>
         <br>
-        <h1 class="flex justify-center items-center text-2xl font-bold">CONSISTENCY RATIO</h1>
-        <h3 class="flex justify-center items-center text-lg font-bold">{{ consistency_ratios }}</h3>
+        <div class="container mx-auto px-0 py-8">
+            <h2 class="flex justify-center items-center text-2xl font-bold">CONSISTENCY RATIO</h2><br>
+            <table class="bg-white shadow-md rounded px-8 py-8 pt-6 pb-8 mb-4 mx-auto max-w-xl">
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in consistency_ratios.items() %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        
+        
+        
 
         <div class="flex justify-center items-center mt-8">
             <div class="h-2 w-2 bg-gray-300 rounded-full mr-2"></div>

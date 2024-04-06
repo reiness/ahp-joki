@@ -11,16 +11,16 @@ app = Flask(__name__)
 app.secret_key = generate_secret_key()
 
 def get_criteria():
-    # return ["Availability Joki",
-    #         "Playerbase", 
-    #         "Market Size",
-    #         "Policy", 
-    #         "Competitors",
-    #         "Underlying Cost",
-    #         "Price Competition",
-    #         "Category Joki",
-    #         "Skill Ceiling"]
-    return ['Playerbase','Market Size','Policy','Competitors']
+    return ["Availability Joki",
+            "Playerbase", 
+            "Market Size",
+            "Policy", 
+            "Competitors",
+            "Underlying Cost",
+            "Price Competition",
+            "Category Joki",
+            "Skill Ceiling"]
+    # return ['Playerbase','Market Size','Policy','Competitors']
 
 def check_consistency(pairwise_comparisons):
     ratios = {}
@@ -39,14 +39,50 @@ def perform_calculation(pairwise_comparisons):
 
     # Construct criteria comparisons
     criteria_comparisons = {
-        ('Playerbase', 'Market Size'): 2,
+        ('Playerbase', 'Market Size'): 1,
         ('Playerbase', 'Policy'): 3,
-        ('Playerbase', 'Competitors'): 5,
-        ('Market Size', 'Policy'): 1/4,
-        ('Market Size', 'Competitors'): 1/3,
-        ('Policy', 'Competitors'): 2
-    }
+        ('Playerbase', 'Competitors'): 3,
+        ('Playerbase', 'Availability Joki'): 5,
+        ('Playerbase', 'Underlying Cost'): 3,
+        ('Playerbase', 'Price Competition'): 5,
+        ('Playerbase', 'Category Joki'): 3,
+        ('Playerbase', 'Skill Ceiling'): 5,
 
+        ('Market Size', 'Policy'): 2,
+        ('Market Size', 'Competitors'): 3,
+        ('Market Size', 'Availability Joki'): 7,
+        ('Market Size', 'Underlying Cost'): 7,
+        ('Market Size', 'Price Competition'): 7,
+        ('Market Size', 'Category Joki'): 7,
+        ('Market Size', 'Skill Ceiling'): 7,
+
+        ('Policy', 'Competitiors'): 2,
+        ('Policy', 'Availability Joki'): 5,
+        ('Policy', 'Underlying Cost'): 3,
+        ('Policy', 'Price Competition'): 3,
+        ('Policy', 'Category Joki'): 3,
+        ('Policy', 'Skill Ceiling'): 5,
+
+        ('Competitors', 'Availability Joki'): 5,
+        ('Competitors', 'Underlying Cost'): 3,
+        ('Competitors', 'Price Competition'): 3,
+        ('Competitors', 'Category Joki'): 3,
+        ('Competitors', 'Skill Ceiling'): 5,
+
+        ('Availability Joki', 'Underlying Cost'): 3,
+        ('Availability Joki', 'Price Competition'): 2,
+        ('Availability Joki', 'Category Joki'): 3,
+        ('Availability Joki', 'Skill Ceiling'): 1,
+
+        ('Underlying Cost', 'Price Competition'): 1,
+        ('Underlying Cost', 'Category Joki'): 1,
+        ('Underlying Cost', 'Skill Ceiling'): 3,
+
+        ('Price Competition', 'Category Joki'): 2,
+        ('Price Competition', 'Skill Ceiling'): 3,
+
+        ('Category Joki', 'Skill Ceiling'): 3,
+    }
     criteria_comparison = ahpy.Compare('Criteria', criteria_comparisons, precision=3, random_index='saaty')
 
     criteria_objects = []
